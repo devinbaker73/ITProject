@@ -7,7 +7,7 @@ class Leaf:
 def yes(query):
   while True:
     ans = input(query)
-    ans = string.lower(ans[0:1])
+    ans = str.lower(ans[0:1])
     if ans == 'y':
       return True
     else:
@@ -16,7 +16,8 @@ knowledge  = Leaf("bird")
 def mainfunc():
   while True:
     print
-    if not yes("Are you thinking of an animal? "):
+    if not yes("Are you thinking of an object? "):
+      print("Then it is not in this database")
       break
     p = knowledge
     while p.left != None:
@@ -28,3 +29,10 @@ def mainfunc():
       continue
     thing = input("What is its name? ")
     question = input ("What question would distinguish a %s from a %s? "% (thing, p.question))
+    p.left = Leaf(p.question)
+    p.right = Leaf(thing)
+    p.question = question
+    if not yes("If this thing was %s the answer would be? " % thing):
+      (p.right, p.left) = (p.left, p.right)
+if __name__ == "__main__":
+  mainfunc()
