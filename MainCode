@@ -1,4 +1,6 @@
-listofobjects = ["baseball"]
+import pickle
+listofobjects = []
+objectqualities = []
 class Leaf:
 
   def __init__(self, question, left=None, right=None):
@@ -39,36 +41,36 @@ def mainfunc():
 
       break
 
-    p = knowledge
+    place = knowledge
 
-    while p.left != None:
+    while place.left != None:
 
-      if yes(p.question+"?"):
+      if yes(place.question+"?"):
 
-        p=p.right
+        p=place.right
 
       else:
 
-        p=p.left
+        p=place.left
 
-    if yes("Is it a " + p.question + "? "):
+    if yes("Is it a " + place.question + "? "):
 
       continue
 
     thing = input("What is its name? ")
 
-    question = input ("What question would distinguish a %s from a %s? "% (thing, p.question))
+    question = input ("What question would distinguish a %s from a %s? "% (thing, place.question))
 
-    p.left = Leaf(p.question)
+    place.left = Leaf(place.question)
 
-    p.right = Leaf(thing)
+    place.right = Leaf(thing)
 
-    p.question = question
+    place.question = question
+    listofobjects.append(place.question)
 
     if not yes("If this thing was %s the answer would be? " % thing):
 
-      (p.right, p.left) = (p.left, p.right)
-
+      (place.right, place.left) = (place.left, place.right)
 if __name__ == "__main__":
 
   mainfunc()
