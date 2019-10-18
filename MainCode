@@ -15,8 +15,9 @@ def yes(query):
       return True
     else:
       return False
-knowledge  = Leaf("baseball")
+knowledge = Leaf("baseball")
 def mainfunc():
+  knowledge  = objectqualities[0]
   while True:
     print
     if not yes("Are you seeking an object? "):
@@ -35,17 +36,18 @@ def mainfunc():
     place.left = Leaf(place.question)
     place.right = Leaf(thing)
     place.question = question
-    samplelist.append(place)
+    objectqualities.append(place)
     listofobjects.append(place.left)
-    objectqualities.append(place.right)
+    listofobjects.append(place.right)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
 #if __name__ == "__main__":
   #mainfunc()
 def save():
   save_on = open("picklejar", "wb")
-  pickle.dump(objectqualities, save_on)
+  for x in objectqualities:
+    pickle.dump(x, save_on)
   save_on.close()
 def load():
   save_off = open("picklejar","rb")
-  samplelist.append(pickle.load(save_off))
+  objectqualities.append(pickle.load(save_off))
