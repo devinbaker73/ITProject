@@ -1,76 +1,51 @@
 import pickle
+samplelist = []
 listofobjects = []
 objectqualities = []
 class Leaf:
-
   def __init__(self, question, left=None, right=None):
-
     self.question = question
-
     self.left = left
-
     self.right = right
-
 def yes(query):
-
   while True:
-
     ans = input(query)
-
     ans = str.lower(ans[0:1])
-
     if ans == 'y':
-
       return True
-
     else:
-
       return False
-
 knowledge  = Leaf("baseball")
-
 def mainfunc():
-
   while True:
-
     print
-
     if not yes("Are you seeking an object? "):
-
       print("Then it is not in this database")
-
       break
-
     place = knowledge
-
     while place.left != None:
-
-      if yes(place.question+"?"):
-
-        p=place.right
-
+      if yes(place.question+"? "):
+        place=place.right
       else:
-
-        p=place.left
-
+        place=place.left
     if yes("Is it a " + place.question + "? "):
-
       continue
-
     thing = input("What is its name? ")
-
     question = input ("What question would distinguish a %s from a %s? "% (thing, place.question))
-
     place.left = Leaf(place.question)
-
     place.right = Leaf(thing)
-
     place.question = question
-    listofobjects.append(place.question)
-
+    samplelist.append(place)
+    listofobjects.append(place.left)
+    objectqualities.append(place.right)
     if not yes("If this thing was %s the answer would be? " % thing):
-
       (place.right, place.left) = (place.left, place.right)
-if __name__ == "__main__":
-
-  mainfunc()
+#if __name__ == "__main__":
+  #mainfunc()
+def save():
+  save_on = open("picklejar", "wb")
+  pickle.dump(objectqualities, save_on)
+  save_on.close()
+def load():
+  save_off = open("picklejar","rb")
+  samplelist.append(pickle.load(save_off))
