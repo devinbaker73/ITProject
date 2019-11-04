@@ -17,7 +17,6 @@ def yes(query):
       return False
 knowledge = Leaf("baseball")
 def mainfunc():
-  knowledge  = objectqualities[0]
   while True:
     print
     if not yes("Are you seeking an object? "):
@@ -41,8 +40,6 @@ def mainfunc():
     listofobjects.append(place.right)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
-#if __name__ == "__main__":
-  #mainfunc()
 def save():
   save_on = open("picklejar", "wb")
   for x in objectqualities:
@@ -51,3 +48,8 @@ def save():
 def load():
   save_off = open("picklejar","rb")
   objectqualities.append(pickle.load(save_off))
+if __name__ == "__main__":
+  if (input("Load Last Session? "))[0:1] == "y":
+    load()
+    knowledge = objectqualities[0]
+  mainfunc()
