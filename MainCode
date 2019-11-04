@@ -1,4 +1,5 @@
 import pickle
+savelist = []
 samplelist = []
 listofobjects = []
 objectqualities = []
@@ -35,21 +36,23 @@ def mainfunc():
     place.left = Leaf(place.question)
     place.right = Leaf(thing)
     place.question = question
-    objectqualities.append(place)
-    listofobjects.append(place.left)
-    listofobjects.append(place.right)
+    savelist.append(place)
+    listofobjects.append(Leaf(thing))
+    objectqualities.append(question)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
 def save():
   save_on = open("picklejar", "wb")
-  for x in objectqualities:
+  for x in savelist:
     pickle.dump(x, save_on)
   save_on.close()
 def load():
   save_off = open("picklejar","rb")
-  objectqualities.append(pickle.load(save_off))
+  savelist.append(pickle.load(save_off))
 if __name__ == "__main__":
   if (input("Load Last Session? "))[0:1] == "y":
     load()
-    knowledge = objectqualities[0]
+    knowledge = savelist[0]
+  else:
+    listofobjects.append(Leaf("baseball"))
   mainfunc()
