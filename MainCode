@@ -3,8 +3,9 @@ savelist = []
 samplelist = []
 listofobjects = []
 objectqualities = []
+starterdict = {}
 class Leaf:
-  def __init__(self, question, left=None, right=None):
+  def __init__(self, question, left=None, right=None, diction={}):
     self.question = question
     self.left = left
     self.right = right
@@ -19,6 +20,7 @@ def yes(query):
 knowledge = Leaf("baseball")
 def mainfunc():
   while True:
+    starterdict = {}
     print
     if not yes("Are you seeking an object? "):
       print("Then it is not in this database")
@@ -26,10 +28,12 @@ def mainfunc():
     place = knowledge
     while place.left != None:
       if yes(place.question+"? "):
+        starterdict[place.question] = "Y"
         place=place.right
       else:
         place=place.left
     if yes("Is it a " + place.question + "? "):
+      place.diction = starterdict
       continue
     thing = input("What is its name? ")
     question = input ("What question would distinguish a %s from a %s? "% (thing, place.question))
