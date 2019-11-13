@@ -9,6 +9,7 @@ class Leaf:
     self.question = question
     self.left = left
     self.right = right
+    self.diction = diction
 def yes(query):
   while True:
     ans = input(query)
@@ -28,7 +29,7 @@ def mainfunc():
     place = knowledge
     while place.left != None:
       if yes(place.question+"? "):
-        starterdict[place.question] = "Y"
+        starterdict[str(place.question)] = "Y"
         place=place.right
       else:
         place=place.left
@@ -40,6 +41,8 @@ def mainfunc():
     place.left = Leaf(place.question)
     place.right = Leaf(thing)
     place.question = question
+    print(starterdict)
+    Leaf(thing).diction = starterdict
     savelist.append(place)
     listofobjects.append(Leaf(thing))
     objectqualities.append(question)
@@ -50,9 +53,29 @@ def save():
   for x in savelist:
     pickle.dump(x, save_on)
   save_on.close()
+  obj_on = open("objects", "wb")
+  #for x in listofobjects:
+  pickle.dump(listofobjects, obj_on)
+  obj_on.close()
 def load():
   save_off = open("picklejar","rb")
   savelist.append(pickle.load(save_off))
+  save_off.close()
+  obj_off = open("objects","rb")
+  data = (pickle.load(obj_off))
+  for x in data:
+    listofobjects.append(x)
+  obj_off.close()
+def obj():
+  for x in listofobjects:
+    print(x.question)
+def showobjectqualities(objname):
+  for x in listofobjects:
+    if objname == x.question:
+      print(x.diction)
+def sav():
+  for x in savelist:
+    print(x.question)
 if __name__ == "__main__":
   if (input("Load Last Session? "))[0:1] == "y":
     load()
