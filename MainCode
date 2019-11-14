@@ -5,11 +5,16 @@ listofobjects = []
 objectqualities = []
 starterdict = {}
 class Leaf:
-  def __init__(self, question, left=None, right=None, diction={}):
+  def __init__(self, question, left=None, right=None):
     self.question = question
     self.left = left
     self.right = right
-    self.diction = diction
+    self.diction = {}
+  def dictchange(self, dicti):
+    hname = dicti.keys()
+    for x in hname:
+      self.diction[x] = dicti.get(x)
+    print(self.diction)
 def yes(query):
   while True:
     ans = input(query)
@@ -32,6 +37,7 @@ def mainfunc():
         starterdict[str(place.question)] = "Y"
         place=place.right
       else:
+        starterdict[str(place.question)] = "N"
         place=place.left
     if yes("Is it a " + place.question + "? "):
       place.diction = starterdict
@@ -39,12 +45,13 @@ def mainfunc():
     thing = input("What is its name? ")
     question = input ("What question would distinguish a %s from a %s? "% (thing, place.question))
     place.left = Leaf(place.question)
-    place.right = Leaf(thing)
+    zee = Leaf(thing)
+    place.right = zee
     place.question = question
     print(starterdict)
-    Leaf(thing).diction = starterdict
+    zee.dictchange(starterdict)
     savelist.append(place)
-    listofobjects.append(Leaf(thing))
+    listofobjects.append(zee)
     objectqualities.append(question)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
