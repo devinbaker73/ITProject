@@ -14,7 +14,6 @@ class Leaf:
     hname = dicti.keys()
     for x in hname:
       self.diction[x] = dicti.get(x)
-    print(self.diction)
 def yes(query):
   while True:
     ans = input(query)
@@ -48,13 +47,13 @@ def mainfunc():
     zee = Leaf(thing)
     place.right = zee
     place.question = question
-    print(starterdict)
     zee.dictchange(starterdict)
     savelist.append(place)
     listofobjects.append(zee)
     objectqualities.append(question)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
+  commandaccess()
 def save():
   save_on = open("picklejar", "wb")
   for x in savelist:
@@ -64,6 +63,7 @@ def save():
   #for x in listofobjects:
   pickle.dump(listofobjects, obj_on)
   obj_on.close()
+  commandaccess()
 def load():
   save_off = open("picklejar","rb")
   savelist.append(pickle.load(save_off))
@@ -73,6 +73,7 @@ def load():
   for x in data:
     listofobjects.append(x)
   obj_off.close()
+  commandaccess()
 def obj():
   for x in listofobjects:
     print(x.question)
@@ -83,10 +84,20 @@ def showobjectqualities(objname):
 def sav():
   for x in savelist:
     print(x.question)
+def commandaccess():
+  prompt = input("Enter command: quit/save/load/ask: ")
+  if prompt[0] == "q":
+    print("Ending session...")
+  elif prompt[0] == "s":
+    save()
+  elif prompt[0] == "l":
+    load()
+  elif prompt[0] == "a":
+    mainfunc()
 if __name__ == "__main__":
   if (input("Load Last Session? "))[0:1] == "y":
     load()
     knowledge = savelist[0]
   else:
     listofobjects.append(Leaf("baseball"))
-  mainfunc()
+  commandaccess()
