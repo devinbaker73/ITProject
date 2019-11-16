@@ -85,7 +85,7 @@ def sav():
   for x in savelist:
     print(x.question)
 def commandaccess():
-  prompt = input("Enter command: quit/save/load/ask: ")
+  prompt = input("Enter command: quit/save/load/ask/object: ")
   if prompt[0] == "q":
     print("Ending session...")
   elif prompt[0] == "s":
@@ -94,10 +94,17 @@ def commandaccess():
     load()
   elif prompt[0] == "a":
     mainfunc()
+  elif prompt[0] == "o":
+    objname = input("Enter object name to input: ")
+    showobjectqualities(str(objname))
+  else:
+    print("Invalid command")
+    commandaccess()
 if __name__ == "__main__":
   if (input("Load Last Session? "))[0:1] == "y":
     load()
     knowledge = savelist[0]
   else:
-    listofobjects.append(Leaf("baseball"))
+    alltogether = Leaf("baseball")
+    listofobjects.append(alltogether)
   commandaccess()
