@@ -1,35 +1,33 @@
 import pickle
-savelist = []
-samplelist = []
-listofobjects = []
-objectqualities = []
-starterdict = {}
-class Leaf:
-  def __init__(self, question, left=None, right=None):
+savelist = [] #List used for saving questions
+listofobjects = [] #List used for saving objects
+starterdict = {} #Used when asking questions to help assign dictionary to object
+class Leaf: #Class for our object
+  def __init__(self, question, left=None, right=None): #Startup assignment
     self.question = question
     self.left = left
     self.right = right
     self.diction = {}
-  def dictchange(self, dicti):
-    hname = dicti.keys()
-    for x in hname:
-      self.diction[x] = dicti.get(x)
-def yes(query):
+  def dictchange(self, dicti): #Function for dict changing, dicti is inputted dict
+    hname = dicti.keys() #Simple holder var for all the keys given by dicti
+    for x in hname: #Loops for every key
+      self.diction[x] = dicti.get(x) #Creates dict entry and assigns it
+def yes(query): #function that asks inputted question and returns y/n answer
   while True:
-    ans = input(query)
-    ans = str.lower(ans[0:1])
-    if ans == 'y':
-      return True
+    ans = input(query) #creates input question from query and assigns to var
+    ans = str.lower(ans[0:1]) #only checks the first letter
+    if ans == 'y': #if it starts with 'y' aka yes
+      return True #question is true
     else:
-      return False
-knowledge = Leaf("baseball")
-def mainfunc():
-  while True:
-    starterdict = {}
-    print
-    if not yes("Are you seeking an object? "):
+      return False #question is false
+knowledge = Leaf("baseball") # assigns a var to the leaf class "baseball" as a starter
+def mainfunc(): #The main function for asking questions and assigning Leafs
+  while True: #Loops until break
+    starterdict = {}#Clears the starterdict
+    print #Line break
+    if not yes("Are you seeking an object? "): #If the question is false
       print("Then it is not in this database")
-      break
+      break #Break loop
     place = knowledge
     while place.left != None:
       if yes(place.question+"? "):
@@ -50,7 +48,6 @@ def mainfunc():
     zee.dictchange(starterdict)
     savelist.append(place)
     listofobjects.append(zee)
-    objectqualities.append(question)
     if not yes("If this thing was %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
   commandaccess()
