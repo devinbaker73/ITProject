@@ -1,6 +1,7 @@
 import pickle
 savelist = [] #List used for saving questions
 listofobjects = [] #List used for saving objects
+objectqualities = []
 starterdict = {} #Used when asking questions to help assign dictionary to object
 class Leaf: #Class for our object
   def __init__(self, question, left=None, right=None): #Startup assignment
@@ -48,7 +49,7 @@ def mainfunc(): #The main function for asking questions and assigning Leafs
     zee.dictchange(starterdict)
     savelist.append(place)
     listofobjects.append(zee)
-    if not yes("If this thing was %s the answer would be? " % thing):
+    if not yes("If this thing was a %s the answer would be? " % thing):
       (place.right, place.left) = (place.left, place.right)
   commandaccess()
 def save():
@@ -70,10 +71,6 @@ def load():
   for x in data:
     listofobjects.append(x)
   obj_off.close()
-  commandaccess()
-def obj():
-  for x in listofobjects:
-    print(x.question)
 def showobjectqualities(objname):
   for x in listofobjects:
     if objname == x.question:
@@ -82,13 +79,11 @@ def sav():
   for x in savelist:
     print(x.question)
 def commandaccess():
-  prompt = input("Enter command: quit/save/load/ask/object: ")
+  prompt = input("Enter command: quit/save/ask/object: ")
   if prompt[0] == "q":
     print("Ending session...")
   elif prompt[0] == "s":
     save()
-  elif prompt[0] == "l":
-    load()
   elif prompt[0] == "a":
     mainfunc()
   elif prompt[0] == "o":
