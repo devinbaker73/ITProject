@@ -42,7 +42,7 @@ def mainfunc(): #The main function for asking questions and assigning Leafs
       continue
     thing = input("What is its name? ")
     thing = thing.lower()
-    question = input ("What question would distinguish a %s from a %s? "% (thing, place.question))
+    question = input ("What question would distinguish a/an %s from a/an %s? "% (thing, place.question))
     question = question.lower()
     place.left = Leaf(place.question)
     zee = Leaf(thing)
@@ -52,7 +52,7 @@ def mainfunc(): #The main function for asking questions and assigning Leafs
     zee.dictchange(starterdict)
     savelist.append(place)
     listofobjects.append(zee)
-    if not yes("If this thing was a %s the answer would be? " % thing):
+    if not yes("If this thing was a/an %s the answer would be? " % thing):
       zee.diction[question] = "N"
       (place.right, place.left) = (place.left, place.right)
   commandaccess()
@@ -85,7 +85,10 @@ def sav():
 def commandaccess():
   prompt = input("Enter command: quit/save/ask/object: ")
   prompt = prompt.lower()
-  if prompt[0] == "q":
+  if prompt == "":
+    print("Please enter character")
+    commandaccess()
+  elif prompt[0] == "q":
     print("Ending session...")
   elif prompt[0] == "s":
     save()
