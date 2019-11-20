@@ -1,7 +1,6 @@
 import pickle
 savelist = [] #List used for saving questions
 listofobjects = [] #List used for saving objects
-objectqualities = []
 starterdict = {} #Used when asking questions to help assign dictionary to object
 class Leaf: #Class for our object
   def __init__(self, question, left=None, right=None): #Startup assignment
