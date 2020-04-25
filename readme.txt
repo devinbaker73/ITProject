@@ -1,5 +1,5 @@
 ***********
-How to use:
+# How to use:
 ***********
 Ensure you have packages installed (listed at top of code). Important ones are pickle and opencv2.
 
